@@ -19,16 +19,29 @@ class BasePage():
     def go_to_login_page(self):
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
+
+    def go_to_basket_page(self):
+        basket_link = self.browser.find_element(*BasePageLocators.BUTTON_GO_TO_BASKET)
+        basket_link.click()
     
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link isn't presented"
 
-    def is_element_present(self, how, what):
+    #метод проверяет что элемент появляется на странице в течение заданного времени
+    def is_element_present(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return False
+
+        return True
+        '''
         try:
             self.browser.find_element(how, what)
         except (NoSuchElementException):
             return False
         return True
+        '''
 
     def get_element(self, how, what):
         try:
