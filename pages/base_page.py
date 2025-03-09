@@ -39,13 +39,6 @@ class BasePage():
             return False
 
         return True
-        '''
-        try:
-            self.browser.find_element(how, what)
-        except (NoSuchElementException):
-            return False
-        return True
-        '''
 
     def get_element(self, how, what):
         try:
